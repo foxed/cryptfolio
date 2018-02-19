@@ -15,15 +15,19 @@ const data02 = [{name: 'Group A', value: 2400}, {name: 'Group B', value: 4567},
 
 
 class Form extends React.Component {
+	state = { coinAmount: '' }
   handleSubmit = (event) => {
 		event.preventDefault();
-		console.log("testing123");
+		console.log(this.state.coinAmount);
 	};
 
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<input type="text" placeholder="coin amount" />
+				<input type="text"
+			   value={this.state.coinAmount}
+				 onChange={(event) => this.setState({ coinAmount: event.target.value })}
+		     placeholder="coin amount" />
 				<button type="submit">Add coin</button>
 		  </form>
 		);
