@@ -13,6 +13,23 @@ const data02 = [{name: 'Group A', value: 2400}, {name: 'Group B', value: 4567},
 	{name: 'Group C', value: 1398}, {name: 'Group D', value: 9800},
 	{name: 'Group E', value: 3908}, {name: 'Group F', value: 4800}];
 
+
+class Form extends React.Component {
+  handleSubmit = (event) => {
+		event.preventDefault();
+		console.log("testing123");
+	};
+
+	render() {
+		return (
+			<form onSubmit={this.handleSubmit}>
+				<input type="text" placeholder="coin amount" />
+				<button type="submit">Add coin</button>
+		  </form>
+		);
+	}
+}
+
 class TestPie extends React.Component {
 	state = { 
 		slices: [
@@ -22,7 +39,7 @@ class TestPie extends React.Component {
 				value: 200 },
 		]
 	};
-	
+
   render() {
 		return (
       <PieChart width={800} height={400}>
@@ -50,6 +67,7 @@ class Body extends React.Component {
     return (
 			<div>
 			  <div>
+				  <center><Form /></center>
 				  <TestPie />
 				</div>
 				<div>
