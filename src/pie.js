@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PieChart, Pie, Tooltip } from 'recharts';
 
+
 const data00 = [{name: "one", value: 400}, {name: "two", value: 600}];
 
 const data01 = [{name: 'Group A', value: 400}, {name: 'Group B', value: 300},
@@ -13,10 +14,19 @@ const data02 = [{name: 'Group A', value: 2400}, {name: 'Group B', value: 4567},
 	{name: 'Group E', value: 3908}, {name: 'Group F', value: 4800}];
 
 class TestPie extends React.Component {
+	state = { 
+		slices: [
+			{ name: "test1",
+				value: 900 },
+			{ name: "test2",
+				value: 200 },
+		]
+	};
+	
   render() {
 		return (
       <PieChart width={800} height={400}>
-			  <Pie dataKey="value" data={data00} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#84ca6f"/>
+			  <Pie dataKey="value" data={this.state.slices} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#84ca6f"/>
 				<Tooltip/>
 			</PieChart>
 		);
