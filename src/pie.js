@@ -9,6 +9,7 @@ class Form extends React.Component {
   handleSubmit = (event) => {
 		event.preventDefault();
 		console.log(this.state.coinAmount);
+		this.props.onSubmit();
 	};
 
 	render() {
@@ -25,33 +26,37 @@ class Form extends React.Component {
 }
 
 class TestPie extends React.Component {
-	state = { 
-		slices: [
-			{ name: "test1",
-				value: 900 },
-			{ name: "test2",
-				value: 200 },
-		]
+	state = {
+		slices: []
+	};
+
+	addNewSlice = (sliceData) => {  // WIP, goal: adding the user inputted slices in to form the pie chart
+		this.setState(prevState => ({
+			slices: prevState.slices.concat(sliceData)
+		}));
 	};
 
   render() {
 		return (
-      <PieChart width={800} height={400}>
-			  <Pie dataKey="value" data={this.state.slices} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#84ca6f"/>
-				<Tooltip/>
-			</PieChart>
+			<div>
+			  <div>
+				  <Form onSubmit={this.addNewSlice} />
+			  </div>
+			  <div>
+          <PieChart width={800} height={400}>
+			      <Pie dataKey="value" data={this.state.slices} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#84ca6f"/>
+				  <Tooltip/>
+			    </PieChart>
+		   	</div>
+			</div>
 		);
 	}
 }
 
 class Body extends React.Component {
-	addNewSlice
 	render () {
     return (
 			<div>
-			<center>
-			  <Form onSubmit={this.addNewSlice}  />
-			</center>
 				<TestPie />
 			</div>
 		);
