@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { PieChart, Pie, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, Sector, Tooltip } from 'recharts';
 
-const data00 = [{name: "one", value: 400}, {name: "two", value: 600}];
+//const data00 = [{name: "one", value: 400}, {name: "two", value: 600}];
 
 const Slice = (props) => {
 	return (
@@ -44,16 +44,20 @@ class Form extends React.Component {
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit}> // AHHH read about all these damn blankChanges and blankSubmits
+			<form onSubmit={this.handleSubmit}> 
 				<input type="text"
 			   value={this.state.coinAmount}
 				 onChange={(event) => this.setState ({ coinAmount: event.target.value })} /> 
-				// maybe move out onchange? 
  			<button type="submit">Add coin</button>
 		  </form>
 		);
 	}
 }
+// AHHH read about all these damn blankChanges and blankSubmits
+// maybe move out onchange? 
+const data = [{name: "group1", value: 500}, {name: "group2", value: 400}]; // just to test colors mapping to cells
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 class TestPie extends React.Component {
 	state = {
@@ -75,9 +79,11 @@ class TestPie extends React.Component {
 			  </div>
 			  <div>
           <PieChart width={800} height={400}>
-			      <Pie dataKey="value" data={this.state.slices} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#84ca6f"/>
-				  <Tooltip/>
-			    </PieChart>
+		      <Pie dataKey="value" data={data} cx={500} cy={200} innerRadius={40} outerRadius={80}>
+					 { data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>) }
+					</Pie>
+				<Tooltip/>
+			  </PieChart>
 		   	</div>
 			</div>
 		);
