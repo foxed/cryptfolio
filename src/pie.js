@@ -1,25 +1,55 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { PieChart, Pie, Tooltip } from 'recharts';
 
 const data00 = [{name: "one", value: 400}, {name: "two", value: 600}];
 
+const Slice = (props) => {
+	return (
+		<div style={{margin: '2em', marginLeft: 400}}>
+			<div>
+			{props.name}
+			</div>
+			<div>
+			{props.amount}
+		  </div>
+		</div>
+	)
+};
+
+const SliceList = (props) => {
+	return (
+	  <div>
+		  {props.slices.map(slice => <Slice {...slice} />)}
+		</div>
+	);
+}
+
+
 class Form extends React.Component {
-	state = { coinAmount: '' }
+	constructor() {
+		super(); // not sure this is needed, read up more on super constructor
+		this.state = {
+			coinAmount: ''
+		}; // is this handling the right data?
+	}
+	
+  state = { coinAmount: '' }
   handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(this.state.coinAmount);
 		this.props.onSubmit();
-	};
+		const { coinAmount } = this.state //is this handling the right data?
+	}
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit}>
+			<form onSubmit={this.handleSubmit}> // AHHH read about all these damn blankChanges and blankSubmits
 				<input type="text"
 			   value={this.state.coinAmount}
-				 onChange={(event) => this.setState({ coinAmount: event.target.value })}
-		     placeholder="coin amount" />
-				<button type="submit">Add coin</button>
+				 onChange={(event) => this.setState ({ coinAmount: event.target.value })} /> 
+				// maybe move out onchange? 
+ 			<button type="submit">Add coin</button>
 		  </form>
 		);
 	}
@@ -41,6 +71,7 @@ class TestPie extends React.Component {
 			<div>
 			  <div>
 				  <Form onSubmit={this.addNewSlice} />
+				  <SliceList slices={this.state.slices} />
 			  </div>
 			  <div>
           <PieChart width={800} height={400}>
