@@ -8,7 +8,9 @@ import { PieChart, Pie, Tooltip } from 'recharts';
 class TestPie extends React.Component {	
 	constructor(props) {
     super(props);
-		this.state = {sectorAmt: ''};
+		this.state = {
+			sectorAmt: []
+		};
 
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,7 +18,7 @@ class TestPie extends React.Component {
 
 	handleChange(event) {
 	  console.log('changed');
-		this.setState({sectorAmt: event.target.value});
+		this.setState({sectorAmt: [event.target.value]});
 	}
 
 	handleSubmit(event) {
@@ -31,14 +33,14 @@ class TestPie extends React.Component {
 			  <div>
 			  <form onSubmit={this.handleSubmit}>
 				  <input type="text"
-						value={this.state.sectorAmt}
+						value={this.state.value}
 				    onChange={this.handleChange} /> 
  			      <input type="submit" value="Add coin" />
 		    </form>
 			  </div>
 			  <div>
           <PieChart width={800} height={400}>
-			      <Pie dataKey="value" data={this.state.sectorAmt} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#84ca6f"/>
+			      <Pie dataKey="value" data={this.state.value} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#84ca6f"/>
 				  <Tooltip/>
 			    </PieChart>
 		   	</div>
