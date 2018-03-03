@@ -11,7 +11,6 @@ class UserInput extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 	}
-
 	handleSubmit(event) {
 		this.setState({sectorAmount: [event.target.value]});
 		console.log(this.state.sectorAmount);
@@ -21,16 +20,15 @@ class UserInput extends React.Component {
 		console.log(this.state.sectorAmount);
 	};
 	
-
 	render() {
 		return(
-			   <form onSubmit={this.handleSubmit}>
-						<input type="text"
-							name="sectorAmount"
-							value={this.state.sectorAmount}
-							onChange={this.handleChange} />
-					 <input type="submit" />
-				</form>
+			<form onSubmit={this.handleSubmit}>
+				<input type="text"
+					name="sectorAmount"
+					value={this.state.sectorAmount}
+					onChange={this.handleChange} />
+				<input type="submit" />
+			</form>
 		)};
 }
 
@@ -49,25 +47,25 @@ handleSectorAmount = (value) => {
 
   render() {
 		return (
-        <div>
-				  <UserInput/>
-				  <PieChart width={800} height={400}>
-			      <Pie dataKey="value" 
-								 data={this.state.sectorAmount}
-								 cx={500}
-								 cy={200}
-								 innerRadius={40}
-								 outerRadius={80}
-								 fill="#84ca6f"/>
-				    <Tooltip />
-			    </PieChart>
-		   	</div>
+			<div>
+				<UserInput/>
+				<PieChart width={800} height={400}>
+					<Pie dataKey="value" 
+							 data={this.state.sectorAmount}
+							 cx={500}
+							 cy={200}
+							 innerRadius={40}
+							 outerRadius={80}
+							 fill="#84ca6f"/>
+					<Tooltip />
+				</PieChart>
+		  </div>
 		)};
 }
 
 class Body extends React.Component {
 	render () {
-    return (
+		return (
 			<div>
 				<TestPie />
 			</div>
