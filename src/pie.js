@@ -8,13 +8,13 @@ const sectorNames = ['Agree', 'Disagree', 'Unsure']
 class UserInput extends React.Component {
 	render() {
 		return (
-			<form>
-				<input type="text"
-					name={this.props.name}
-					value={this.props.value}
-					onChange={this.props.onChange} />
-				<input type="submit" />
-			</form>
+			// this is a "dumb" component
+			// it just shows what we tell it to show, and tells its parent
+			// if it changes through the this.props.onChange function
+			<input type="text"
+				name={this.props.name}
+				value={this.props.value}
+				onChange={this.props.onChange} />
 		)
 	};
 }
@@ -29,6 +29,7 @@ class TestPie extends React.Component {
 			sectors: sectorNames.map(sectorName => ({ name: sectorName, value: 0 }))
 		};
 
+		// bind, because, well, JavaScript :-P
 		this.handleSectorAmount = this.handleSectorAmount.bind(this);
 	}
 
@@ -59,10 +60,25 @@ class TestPie extends React.Component {
 		return (
 			<div>
 				{sectorNames.map(sectorName =>
-					<UserInput name={sectorName} key={sectorName} value={this.state.sectors.find(s => s.name === sectorName).value} onChange={this.handleSectorAmount.bind(this)} />
+					// map/loop through and show user inputs for each sector
+					<UserInput
+						// name comes from our sectorNames array
+						name={sectorName}
+						// key allows React to update this more efficiently
+						key={sectorName}
+						// value comes from this.state.sectors
+						// but we have to use `.find(...).value` because it's in an
+						// array and we have to find the right one (with this name)
+						// and pull out the value
+						value={this.state.sectors.find(s => s.name === sectorName).value}
+						// onChange prop is passed down so we can capture any changes
+						onChange={this.handleSectorAmount} />
 				)}
+
 				<PieChart width={800} height={400}>
 					<Pie dataKey="value"
+						// this.state.sectors is already in a format we understand,
+						// so we don't have to transform it ("derive" it)
 						data={this.state.sectors}
 						cx={500}
 						cy={200}
