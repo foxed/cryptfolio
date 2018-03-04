@@ -8,25 +8,25 @@ class UserInput extends React.Component {
 		super(props);
 		this.state = {sectorAmount: [] };
 
-		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	handleSubmit(event) {
-		this.setState({sectorAmount: [event.target.value]});
-		console.log(this.state.sectorAmount);
+		event.preventDefault();
 	};
 
-	handleChange(event) {
+	handleChange(event){
+		this.setState({sectorAmount: event.target.value});
 		console.log(this.state.sectorAmount);
-	};
-	
+	}
+
 	render() {
 		return(
 			<form onSubmit={this.handleSubmit}>
 				<input type="text"
 					name="sectorAmount"
-					value={this.state.sectorAmount}
-					onChange={this.handleChange} />
+					onChange={this.handleChange}
+					value={this.onChange}/>
 				<input type="submit" />
 			</form>
 		)};
@@ -38,6 +38,7 @@ class TestPie extends React.Component {
 		this.state = {
 			sectorAmount: []
 		};
+		this.handleSectorAmount = this.handleSectorAmount.bind(this);
 	}
 
 handleSectorAmount = (value) => {
@@ -48,7 +49,7 @@ handleSectorAmount = (value) => {
   render() {
 		return (
 			<div>
-				<UserInput/>
+				<UserInput onChange={this.handleSectorAmount}/>
 				<PieChart width={800} height={400}>
 					<Pie dataKey="value" 
 							 data={this.state.sectorAmount}
