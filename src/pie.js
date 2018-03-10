@@ -15,11 +15,11 @@ class UserInput extends React.Component {
 			// if it changes through the this.props.onChange function
 			<div>
 				<label>{this.props.name}</label>
-			  <input type="number"
-			    name={this.props.name}
-			    value={this.props.value}
-			    onChange={this.props.onChange} />
-			</div>
+				<input type="number"
+			name={this.props.name}
+			value={this.props.value}
+			onChange={this.props.onChange} />
+				</div>
 		)
 	};
 }
@@ -68,15 +68,15 @@ class TestPie extends React.Component {
 	};
 
 	addSector = () => {
-			this.setState(state => {
-				return {
-					sectors: [
-						...state.sectors,
-					 	{name: state.newName, value: 0}
-					],
-          adding: false
-				}
-			})
+		this.setState(state => {
+			return {
+				sectors: [
+					...state.sectors,
+					{name: state.newName, value: 0}
+				],
+				adding: false
+			}
+		})
 	}
 
 	render() {
@@ -85,9 +85,9 @@ class TestPie extends React.Component {
 				{this.state.adding ? 
 					<div>
 						<input 
-							value={this.state.newName}
-							placeholder="name"
-							onChange={ (event) => this.setState({ newName: event.target.value })}/>
+					value={this.state.newName}
+					placeholder="name"
+					onChange={ (event) => this.setState({ newName: event.target.value })}/>
 						<button onClick={this.addSector}>create</button>
 						</div>
 						:	
