@@ -1,5 +1,5 @@
 import React from 'react';
-import { PieChart, Pie, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
 class UserInput extends React.Component {
 	render() {
