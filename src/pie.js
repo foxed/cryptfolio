@@ -1,5 +1,8 @@
 import React from 'react';
-import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+import { PieChart, Pie, Tooltip } from 'recharts';
+import { css } from 'glamor';
+import glamorous from 'glamorous';
+import Button from './StyledButton';
 
 class UserInput extends React.Component {
 	render() {
@@ -73,7 +76,8 @@ class TestPie extends React.Component {
 					   value={this.state.newName}
 					   placeholder="name"
 					   onChange={ (event) => this.setState({ newName: event.target.value })}/>
-					  <button onClick={this.addSector}>create</button>
+					  <Button
+				     	onClick={this.addSector}>create</Button>
 				  </div>
 					:
 					<div>
@@ -84,7 +88,7 @@ class TestPie extends React.Component {
 							value={sector.value}
 							onChange={this.handleSectorAmount} />
 					)}
-						<button onClick={ () => this.setState({adding: true})}>add</button>
+						<Button type="success" onClick={ () => this.setState({adding: true})}>add</Button>
 				  </div>
 				}
 				<PieChart width={800} height={400}>
