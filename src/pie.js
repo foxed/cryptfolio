@@ -1,5 +1,5 @@
 import React from 'react';
-import { PieChart, Pie, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import glamorous from 'glamorous';
 import Button from './StyledButton';
 
@@ -19,17 +19,26 @@ const MainGrid = glamorous.div({
 });
 
 const Box = glamorous.div({
-	backgroundColor: '#444',
-	color: '#fff',
+	backgroundColor: '#d3d3d3',
+	borderColor: '#fff',
 	borderRadius: 5,
 	padding: 10,
 	fontSize: '150%',
+	color: '#45d40C'
 });
 
 const HeaderFooter = glamorous(Box)({
-	backgroundColor: '#999',
+	textAlign: 'center',
+	fontFamily: 'Courier New',
+	backgroundColor: '#d3d3d3',
 });
 
+const DataDisplay = glamorous.div({
+	fontSize: 24,
+	textAlign: 'left'
+});
+
+const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 class UserInput extends React.Component {
 	render() {
@@ -37,13 +46,17 @@ class UserInput extends React.Component {
 			// this is a "dumb" component
 			// it just shows what we tell it to show, and tells its parent
 			// if it changes through the this.props.onChange function
-			<div>
+			<DataDisplay>
+				<div>
 				<label>{this.props.name}</label>
+				</div>
+				<div>
 				<input type="number"
 			name={this.props.name}
 			value={this.props.value}
 			onChange={this.props.onChange} />
 				</div>
+				</DataDisplay>
 		)
 	};
 }
@@ -56,7 +69,7 @@ class TestPie extends React.Component {
 			newName: '',
 			adding: false,
 			sectors: [
-				{ name: '', value: 0},
+				{ name: '', value: ''},
 			]
 		};
 	}
@@ -98,7 +111,7 @@ class TestPie extends React.Component {
 		return (
 			<glamorous.Div maxWidth={600} margin="auto" fontSize={24}>
 				<MainGrid css={{ marginBottom: 30, marginTop: 20}}>
-				  <HeaderFooter css={{ gridArea: 'header' }}>Header</HeaderFooter>
+				  <HeaderFooter css={{ gridArea: 'header' }}>cryptfolio</HeaderFooter>
 				  <Box css={{ gridArea: 'content'}}>
 
 				  {this.state.adding ?
@@ -131,7 +144,9 @@ class TestPie extends React.Component {
 			          cx={500}
 			          cy={200}
 			          innerRadius={40}
-			          outerRadius={80} />
+			          outerRadius={80}>      
+				      {this.state.sectors.map((entry, index) => <Cell fill={colors[index % colors.length]}/>)}
+			       </Pie>
 				     <Tooltip/>
 				   </PieChart>
 			   </Box>
