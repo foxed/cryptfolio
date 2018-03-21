@@ -145,10 +145,10 @@ class TestPie extends React.Component {
 			          cy={200}
 			          innerRadius={40}
 			          outerRadius={80}>      
-				      {this.state.sectors.map((entry, index) => <Cell fill={colors[index % colors.length]}/>)}
-			       </Pie>
-				     <Tooltip/>
-				   </PieChart>
+                {this.state.sectors.map((entry, index) => <Cell fill={colors[index % colors.length]}/>)}
+			        </Pie>
+				      <Tooltip/>
+				    </PieChart>
 			   </Box>
 		   </MainGrid>
 		 </glamorous.Div>
