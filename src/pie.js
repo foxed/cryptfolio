@@ -4,7 +4,7 @@ import glamorous from 'glamorous';
 import Button from './StyledButton';
 
 const MainGrid = glamorous.div({
-  margin: 'auto',
+	margin: 'auto',
 	backgroundColor: '#fff',
 	color: '#444',
 	'@supports (display: grid)':{
@@ -110,48 +110,46 @@ class TestPie extends React.Component {
 	render() {
 		return (
 			<glamorous.Div maxWidth={600} margin="auto" fontSize={24}>
-				<MainGrid css={{ marginBottom: 30, marginTop: 20}}>
-				  <HeaderFooter css={{ gridArea: 'header' }}>cryptfolio</HeaderFooter>
-				  <Box css={{ gridArea: 'content'}}>
+			  <MainGrid css={{ marginBottom: 30, marginTop: 20}}>
+				<HeaderFooter css={{ gridArea: 'header' }}>cryptfolio</HeaderFooter>
+				<Box css={{ gridArea: 'content'}}>
 
-				  {this.state.adding ?
-					  <div>
-						  <input
-					      value={this.state.newName}
-					      placeholder="name"
-					      onChange={ (event) => this.setState({ newName: event.target.value })}/>
-						   <Button
-								 onClick={this.addSector}>create</Button>
-						</div>
+				{this.state.adding ?
+					<div>
+					  <input value={this.state.newName}
+					    placeholder="name"
+					    onChange={ (event) => this.setState({ newName: event.target.value })}/>
+						  <Button onClick={this.addSector}>create</Button>
+					</div>
 						:
 						<div>
-						  {this.state.sectors.map(sector =>
-							  <UserInput
-							    name={sector.name}
-							    key={sector.name}
-							    value={sector.value}
-							    onChange={this.handleSectorAmount} />
-						   )}
-						  <Button
-							  type="success"
-							  onClick={ () => this.setState({adding: true})}>add</Button>
+						{this.state.sectors.map(sector =>
+							<UserInput
+							  name={sector.name}
+							  key={sector.name}
+							  value={sector.value}
+							  onChange={this.handleSectorAmount} />
+						)}
+						<Button
+					    type="success"
+					    onClick={ () => this.setState({adding: true})}>add</Button>
 						</div>
 				}
-				    <PieChart width={800} height={400}>
-				      <Pie
-						    dataKey="value"
-			          data={this.state.sectors}
-			          cx={500}
-			          cy={200}
-			          innerRadius={40}
-			          outerRadius={80}>      
-                {this.state.sectors.map((entry, index) => <Cell fill={colors[index % colors.length]}/>)}
-			        </Pie>
-				      <Tooltip/>
-				    </PieChart>
-			   </Box>
-		   </MainGrid>
-		 </glamorous.Div>
+				<PieChart width={800} height={400}>
+				  <Pie
+			      dataKey="value"
+			      data={this.state.sectors}
+			      cx={500}
+			      cy={200}
+			      innerRadius={40}
+			      outerRadius={80}>
+				    {this.state.sectors.map((entry, index) => <Cell fill={colors[index % colors.length]}/>)}
+				  </Pie>
+				  <Tooltip/>
+				</PieChart>
+				</Box>
+			  </MainGrid>
+			</glamorous.Div>
 		)
 	};
 }
@@ -160,8 +158,8 @@ class Body extends React.Component {
 	render() {
 		return (
 			<div>
-				<TestPie />
-				</div>
+			  <TestPie />
+			</div>
 		);
 	}
 }
