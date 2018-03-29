@@ -67,14 +67,11 @@ class TestPie extends React.Component {
   // this part creates a data object for this.state.sectors
   this.state = {
     newName: '',
-    newValue: '',
     adding: false,
     sectors: [
-      {name: 'heyy', value: 300}
+      {name: '', value: 0}
     ]
   };
-
-  this.addSector = this.addSector.bind(this);
 }
 
   handleSectorAmount = (event) => {
@@ -85,7 +82,7 @@ class TestPie extends React.Component {
 
 
 
-    this.setState({sectors: this.state.sectors.concat({name: '', value: parseInt(sectorValue)})});
+  //  this.setState({sectors: this.this.state.sectors.concat({name: '', value: parseInt(sectorValue)})});
     //this.setState(state => {
     // create a new sectors array with this sector's name and value
     // if it already exists, it'll be updated
@@ -105,10 +102,15 @@ class TestPie extends React.Component {
 
   addSector = () => {
     console.log('event targetttttt addSector')
-    this.setState({sectors: this.state.sectors.concat({
-      name: this.state.newName,
-      value: this.state.newValue
-    })});
+    this.setState(state => {
+      return {
+      sectors: [
+        ...state.sectors,
+        {name: state.newName, value: 0}
+      ],
+      adding: false
+      }
+    })
 
   }
 
@@ -119,26 +121,26 @@ class TestPie extends React.Component {
         <MainGrid css={{ marginBottom: 30, marginTop: 20}}>
         <HeaderFooter css={{ gridArea: 'header' }}>cryptfolio</HeaderFooter>
         <Box css={{ gridArea: 'content'}}>
-
+          {this.state.adding ?
         <div>
-          <input
-            value={this.state.newName}
+          <input value={this.state.newName}
             placeholder="name"
             onChange={ (event) => this.setState({ newName: event.target.value })}/>
+          <Button onClick={this.addSector}>create</Button>
         </div>
-
+        :
         <div>
-          <input
-            value={this.state.newValue}
-            placeholder="value"
-            onChange={ (event) => this.setState({ newValue: event.target.value })}/>
+          {this.state.sectors.map(sector =>
+          <UserInput
+            name={sector.name}
+            key={sector.name}
+           value={sector.value}
+           onChange={this.handleSectorAmount} />
+          )}
+          <Button type="success"
+             onClick={ () => this.setState({adding: true})}>add</Button>
         </div>
-
-        <div>
-          <Button type="success" onClick={this.addSector}>add</Button>
-        </div>
-
-        {this.state.sectors.length ?
+          }
         <PieChart width={800} height={400}>
           <Pie
             dataKey="value"
@@ -147,13 +149,10 @@ class TestPie extends React.Component {
             cy={200}
             innerRadius={40}
             outerRadius={80}>
-            {this.state.sectors.map((entry, index) => <Cell key={index} fill={colors[index % colors.length]}/>)}
+            {this.state.sectors.map((entry, index) => <Cell fill={colors[index % colors.length]}/>)}
           </Pie>
           <Tooltip/>
         </PieChart>
-        :
-        'No Sectors'
-      }
         </Box>
         </MainGrid>
       </glamorous.Div>
