@@ -69,7 +69,8 @@ class TestPie extends React.Component {
     this.setState({ pendingName })
   }
 
-  // 2) MERGE EVERYTHING TOGETHER LOGICALLY
+  // 2) FINALIZE: MERGE EVERYTHING TOGETHER LOGICALLY
+  //
   // - take the 2 values (name + actual value), and make a new array item out of them
   // - immutably concat onto old array
   // - clear old values so NEW SELECTOR input looks empty
@@ -90,7 +91,8 @@ class TestPie extends React.Component {
     })
   }
 
-  // 3) ADVANCED (edit existing values -- this is what you originally had, just renamed to be more informative)
+  // 3) ADVANCED (edit existing values)
+  // note: this is what you originally had, just renamed to be more informative
 
   editCurrentValue = (event) => {
     const { name, value } = event.target
