@@ -138,9 +138,8 @@ class TestPie extends React.Component {
           }}>
             {this.state.adding
               ? <div>
-                  <span>STEP 2 - SET NAME</span>
-
                   <UserInput
+                    name='STEP 2 - SET NAME'
                     placeholder="name"
                     value={pendingName}
                     onChange={this.setPendingName}
@@ -149,9 +148,9 @@ class TestPie extends React.Component {
                   <Button onClick={this.addSector}>create</Button>
                 </div>
               : <div>
-                  <span>STEP 1 - SET VALUE</span>
 
                   <UserInput
+                    name='STEP 1 - SET VALUE'
                     type='number'
                     value={pendingValue}
                     onChange={this.setPendingValue}
@@ -196,15 +195,12 @@ class TestPie extends React.Component {
 }
 
 
-class UserInput extends React.Component {
-  render() {
-    return (
-      <DataDisplay>
-        {this.props.name && <label>{this.props.name}</label>}
-        <input {...this.props} type={this.props.type || 'text'} />
-      </DataDisplay>
-    )
-  }
-}
+const UserInput = (props) =>
+  <DataDisplay>
+    <label style={{ marginRight: 10 }} >{props.name}</label>
 
+    {props.name.indexOf('STEP') === 0 && <br />}
+
+    <input {...props} type={props.type || 'text'}/>
+  </DataDisplay>
 

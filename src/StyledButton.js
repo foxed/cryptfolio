@@ -5,6 +5,7 @@ export default glamorous.button(
 		backgroundColor: '#141414',
 		color: '#45D40C',
 		margin: 10,
+		marginLeft: 0,
 		border: 'dashed solid',
 		borderWidth: 'thin',
 		borderColor: 'green',
