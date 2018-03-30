@@ -145,7 +145,7 @@ class TestPie extends React.Component {
                     onChange={this.setPendingName}
                   />
 
-                  <Button onClick={this.addSector}>create</Button>
+                  <Button onClick={this.addSector}>ADD SECTOR</Button>
                 </div>
               : <div>
 
@@ -156,7 +156,7 @@ class TestPie extends React.Component {
                     onChange={this.setPendingValue}
                   />
 
-                  <Button onClick={this.nextStep}>add</Button>
+                  <Button onClick={this.nextStep}>NEXT STEP</Button>
 
                   <br /> <br />
                   
