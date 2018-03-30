@@ -58,7 +58,7 @@ class TestPie extends React.Component {
     this.setState({ pendingValue })
   }
 
-  // 2b) go to next page (simple! -- it's basically the same as if both fields were on the same page)
+  // 1b) go to next page (simple! -- it's basically the same as if both fields were on the same page)
 
   nextStep = () => {
     this.setState({ adding: true })
