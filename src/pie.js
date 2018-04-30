@@ -40,26 +40,7 @@ const DataDisplay = glamorous.div({
 
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
-class UserInput extends React.Component {
-  render() {
-  return (
-  // this is a "dumb" component
-  // it just shows what we tell it to show, and tells its parent
-  // if it changes through the this.props.onChange function
-   <DataDisplay>
-    <div>
-      <label>{this.props.name}</label>
-    </div>
-    <div>
-      <input type="number"
-        name={this.props.name}
-        value={this.props.value}
-        onChange={this.props.onChange} />
-    </div>
-  </DataDisplay>
-  )
- };
-}
+export default () => <div><TestPie /></div>
 
 class TestPie extends React.Component {
   constructor(props) {
@@ -67,99 +48,136 @@ class TestPie extends React.Component {
   // this part creates a data object for this.state.sectors
   this.state = {
     newName: '',
+		newValue: '',
     adding: false,
-    sectors: [
-      { name: '', value: ''},
-    ]
+		sectors: []
   };
 }
 
-  handleSectorAmount = (event) => {
-  // retrieve the name and value from the input
-    const sectorName = event.target.name;
-    const sectorValue = event.target.value;
+	setNewValue = (event) => {
+		const { value } = event.target
+		const newValue = value ? parseInt(value, 10) : ''
+		this.setState({ newValue })
+	}
+
+  nextStep = () => {
+    this.setState({ adding: true })
+  }
+
+	setNewName = (event) => {
+		const { value: newName } = event.target
+		this.setState({ newName})
+	}
+
+	addSector = () => {
+		this.setState(state => {
+			return {
+				sectors: [
+					...state.sectors, {
+						name: state.newName,
+						value: state.newValue
+					}
+				],
+				adding: false,
+				newName: '',
+				newValue: ''
+			}
+		})
+	}
+
+  editSectorValue = (event) => {
+    const {name, value} = event.target
 
     this.setState(state => {
-    // create a new sectors array with this sector's name and value
-    // if it already exists, it'll be updated
       const sectors = state.sectors.map(sector => {
-      // not current sector, return it unchanged
-      if (sector.name !== sectorName) return sector
-      // current sector, let's return a new one
+      if (sector.name !== name) return sector
       return {
-        name: sectorName,
-        value: parseInt(sectorValue, 10)
+        name,
+        value: value ? parseInt(value, 10) : ''
       }
     })
     return {sectors}
     })
   };
 
-  addSector = () => {
-    this.setState(state => {
-      return {
-      sectors: [
-        ...state.sectors,
-        {name: state.newName, value: 0}
-      ],
-      adding: false
-      }
-    })
-  }
-
   render() {
+		const { sectors, newValue, newName } = this.state
+		const allSectors = newValue
+			? sectors.concat({ name: 'new value', value: newValue })
+			: sectors
+
     return (
       <glamorous.Div maxWidth={600} margin="auto" fontSize={24}>
-        <MainGrid css={{ marginBottom: 30, marginTop: 20}}>
-        <HeaderFooter css={{ gridArea: 'header' }}>cryptfolio</HeaderFooter>
-        <Box css={{ gridArea: 'content'}}>
-          {this.state.adding ?
-        <div>
-          <input value={this.state.newName}
-            placeholder="name"
-            onChange={ (event) => this.setState({ newName: event.target.value })}/>
-          <Button onClick={this.addSector}>create</Button>
-        </div>
-        :
-        <div>
-          {this.state.sectors.map(sector =>
+        <MainGrid css={{
+					marginBottom: 30,
+					marginTop: 20}}>
+        <HeaderFooter css={{
+					gridArea: 'header' }}>
+					cryptfolio</HeaderFooter>
+        <Box css={{
+					gridArea: 'content'}}>
+          {this.state.adding
+            ? <div>
+            <UserInput
+              name='STEP 2 - SET NAME'
+              placeholder="name"
+              value={newName}
+              onChange={this.setNewName}
+              />
+
+            <Button onClick={this.addSector}>ADD SECTOR</Button>
+          </div>
+          : <div>
+
           <UserInput
-            name={sector.name}
-            key={sector.name}
-           value={sector.value}
-           onChange={this.handleSectorAmount} />
-          )}
-          <Button type="success"
-             onClick={ () => this.setState({adding: true})}>add</Button>
-        </div>
-          }
-        <PieChart width={800} height={400}>
-          <Pie
-            dataKey="value"
-            data={this.state.sectors}
-            cx={500}
-            cy={200}
-            innerRadius={40}
-            outerRadius={80}>
-            {this.state.sectors.map((entry, index) => <Cell fill={colors[index % colors.length]}/>)}
-          </Pie>
-          <Tooltip/>
-        </PieChart>
-        </Box>
-        </MainGrid>
-      </glamorous.Div>
-    )
-  };
-}
+            name='STEP 1 - SET VALUE'
+            type='number'
+            value={newValue}
+            onChange={this.setNewValue}
+            />
 
-class Body extends React.Component {
-  render() {
-    return (
-      <div>
-        <TestPie />
+          <Button onClick={this.nextStep}>NEXT STEP</Button>
+
+          <br /> <br />
+
+          {sectors.map(sector => (
+            <UserInput
+              type='number'
+              name={sector.name}
+              key={sector.name}
+              value={sector.value}
+              onChange={this.editSectorValue}
+              />
+          ))
+        }
       </div>
-    );
-  }
+    }
+    <PieChart width={800} height={400}>
+      <Pie
+        dataKey="value"
+        data={allSectors}
+        cx={500}
+        cy={200}
+        innerRadius={40}
+        outerRadius={80}
+        >
+        {allSectors.map((entry, index) => (
+          <Cell key={entry.name} fill={colors[index % colors.length]}/>
+        ))}
+      </Pie>
+      <Tooltip/>
+    </PieChart>
+  </Box>
+  </MainGrid>
+  </glamorous.Div>
+ )}
 }
 
-export default Body;
+const UserInput = (props) =>
+  <DataDisplay>
+    <label style={{ marginRight: 10 }} >{props.name}</label>
+
+    {props.name.indexOf('STEP') === 0 && <br />}
+
+    <input {...props} type={props.type || 'text'}/>
+  </DataDisplay>
