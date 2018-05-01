@@ -45,7 +45,6 @@ export default () => <div><TestPie /></div>
 class TestPie extends React.Component {
   constructor(props) {
   super(props);
-  // this part creates a data object for this.state.sectors
   this.state = {
     newName: '',
 		newValue: '',
@@ -119,8 +118,8 @@ class TestPie extends React.Component {
           {this.state.adding
             ? <div>
             <UserInput
-              name='STEP 2 - SET NAME'
-              placeholder="name"
+              name=''
+              placeholder="coin name"
               value={newName}
               onChange={this.setNewName}
               />
@@ -130,7 +129,7 @@ class TestPie extends React.Component {
           : <div>
 
           <UserInput
-            name='STEP 1 - SET VALUE'
+            name='coin value'
             type='number'
             value={newValue}
             onChange={this.setNewValue}
