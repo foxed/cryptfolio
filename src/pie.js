@@ -47,16 +47,16 @@ class TestPie extends React.Component {
     super(props);
     this.state = {
       newName: '',
-	    newValue: '',
+      newValue: '',
       adding: false,
-	    sectors: []
+      sectors: []
     };
   }
 
   setNewValue = (event) => {
-	  const { value } = event.target
-	  const newValue = value ? parseInt(value, 10) : ''
-	  this.setState({ newValue })
+    const { value } = event.target
+    const newValue = value ? parseInt(value, 10) : ''
+    this.setState({ newValue })
   }
 
   nextStep = () => {
@@ -68,14 +68,14 @@ class TestPie extends React.Component {
     this.setState({ newName})
   }
 
-	addSector = () => {
-	  this.setState(state => {
-		  return {
-			  sectors: [
-				  ...state.sectors, {
-					  name: state.newName,
-					  value: state.newValue
-				  }
+  addSector = () => {
+    this.setState(state => {
+      return {
+        sectors: [
+          ...state.sectors, {
+            name: state.newName,
+            value: state.newValue
+          }
         ],
         adding: false,
         newName: '',
@@ -90,46 +90,46 @@ class TestPie extends React.Component {
     this.setState(state => {
       const sectors = state.sectors.map(sector => {
         if (sector.name !== name) return sector
-        return {
-          name,
-          value: value ? parseInt(value, 10) : ''
-        }
+          return {
+            name,
+            value: value ? parseInt(value, 10) : ''
+          }
       })
       return {sectors}
     })
   };
 
   render() {
-	  const { sectors, newValue, newName } = this.state
-	  const allSectors = newValue
-		  ? sectors.concat({ name: 'new value', value: newValue })
-		  : sectors
+    const { sectors, newValue, newName } = this.state
+    const allSectors = newValue
+      ? sectors.concat({ name: 'new value', value: newValue })
+      : sectors
 
     return (
       <glamorous.Div maxWidth={600} margin="auto" fontSize={24}>
         <MainGrid css={{
-					marginBottom: 30,
-					marginTop: 20}}>
+  				marginBottom: 30,
+          marginTop: 20}}>
           <HeaderFooter css={{
-					  gridArea: 'header' }}>
-					  cryptfolio</HeaderFooter>
+            gridArea: 'header' }}>
+            cryptfolio</HeaderFooter>
           <Box css={{
-				    gridArea: 'content'}}>
+            gridArea: 'content'}}>
             {this.state.adding ? <div>
-              <UserInput
-                name=''
-                placeholder="coin name"
-                value={newName}
-                onChange={this.setNewName}/>
+            <UserInput
+              name=''
+              placeholder="coin name"
+              value={newName}
+              onChange={this.setNewName}/>
 
-              <Button onClick={this.addSector}>ADD SECTOR</Button>
+            <Button onClick={this.addSector}>ADD SECTOR</Button>
             </div>
             : <div>
-              <UserInput
-                name='coin value'
-                type='number'
-                value={newValue}
-                onChange={this.setNewValue}/>
+            <UserInput
+              name='coin value'
+              type='number'
+              value={newValue}
+              onChange={this.setNewValue}/>
 
               <Button onClick={this.nextStep}>NEXT STEP</Button>
 
@@ -144,7 +144,7 @@ class TestPie extends React.Component {
                   onChange={this.editSectorValue}/>
               ))}
             </div>
-           }
+          }
         <PieChart width={800} height={400}>
           <Pie
             dataKey="value"
