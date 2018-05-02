@@ -47,9 +47,9 @@ class TestPie extends React.Component {
   super(props);
   this.state = {
     newName: '',
-		newValue: '',
+	  newValue: '',
     adding: false,
-		sectors: []
+	  sectors: []
   };
 }
 
@@ -89,85 +89,78 @@ class TestPie extends React.Component {
 
     this.setState(state => {
       const sectors = state.sectors.map(sector => {
-      if (sector.name !== name) return sector
-      return {
-        name,
-        value: value ? parseInt(value, 10) : ''
-      }
-    })
-    return {sectors}
+        if (sector.name !== name) return sector
+        return {
+          name,
+          value: value ? parseInt(value, 10) : ''
+        }
+      })
+      return {sectors}
     })
   };
 
   render() {
-		const { sectors, newValue, newName } = this.state
-		const allSectors = newValue
-			? sectors.concat({ name: 'new value', value: newValue })
-			: sectors
+	  const { sectors, newValue, newName } = this.state
+	  const allSectors = newValue
+		  ? sectors.concat({ name: 'new value', value: newValue })
+		  : sectors
 
     return (
       <glamorous.Div maxWidth={600} margin="auto" fontSize={24}>
         <MainGrid css={{
 					marginBottom: 30,
 					marginTop: 20}}>
-        <HeaderFooter css={{
-					gridArea: 'header' }}>
-					cryptfolio</HeaderFooter>
-        <Box css={{
-					gridArea: 'content'}}>
-          {this.state.adding
-            ? <div>
-            <UserInput
-              name=''
-              placeholder="coin name"
-              value={newName}
-              onChange={this.setNewName}
-              />
+          <HeaderFooter css={{
+					  gridArea: 'header' }}>
+					  cryptfolio</HeaderFooter>
+          <Box css={{
+				    gridArea: 'content'}}>
+            {this.state.adding ? <div>
+              <UserInput
+                name=''
+                placeholder="coin name"
+                value={newName}
+                onChange={this.setNewName}/>
 
-            <Button onClick={this.addSector}>ADD SECTOR</Button>
-          </div>
-          : <div>
+              <Button onClick={this.addSector}>ADD SECTOR</Button>
+            </div>
+            : <div>
+              <UserInput
+                name='coin value'
+                type='number'
+                value={newValue}
+                onChange={this.setNewValue}/>
 
-          <UserInput
-            name='coin value'
-            type='number'
-            value={newValue}
-            onChange={this.setNewValue}
-            />
+              <Button onClick={this.nextStep}>NEXT STEP</Button>
 
-          <Button onClick={this.nextStep}>NEXT STEP</Button>
+              <br /> <br />
 
-          <br /> <br />
-
-          {sectors.map(sector => (
-            <UserInput
-              type='number'
-              name={sector.name}
-              key={sector.name}
-              value={sector.value}
-              onChange={this.editSectorValue}
-              />
-          ))
-        }
-      </div>
-    }
-    <PieChart width={800} height={400}>
-      <Pie
-        dataKey="value"
-        data={allSectors}
-        cx={500}
-        cy={200}
-        innerRadius={40}
-        outerRadius={80}
-        >
-        {allSectors.map((entry, index) => (
-          <Cell key={entry.name} fill={colors[index % colors.length]}/>
-        ))}
-      </Pie>
-      <Tooltip/>
-    </PieChart>
-  </Box>
-  </MainGrid>
+              {sectors.map(sector => (
+                <UserInput
+                  type='number'
+                  name={sector.name}
+                  key={sector.name}
+                  value={sector.value}
+                  onChange={this.editSectorValue}/>
+              ))}
+            </div>
+           }
+        <PieChart width={800} height={400}>
+          <Pie
+            dataKey="value"
+            data={allSectors}
+            cx={500}
+            cy={200}
+            innerRadius={40}
+            outerRadius={80} >
+              {allSectors.map((entry, index) => (
+                <Cell key={entry.name} fill={colors[index % colors.length]}/>
+              ))}
+          </Pie>
+          <Tooltip/>
+        </PieChart>
+      </Box>
+    </MainGrid>
   </glamorous.Div>
  )}
 }
