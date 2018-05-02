@@ -44,45 +44,45 @@ export default () => <div><TestPie /></div>
 
 class TestPie extends React.Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    newName: '',
-	  newValue: '',
-    adding: false,
-	  sectors: []
-  };
-}
+    super(props);
+    this.state = {
+      newName: '',
+	    newValue: '',
+      adding: false,
+	    sectors: []
+    };
+  }
 
-	setNewValue = (event) => {
-		const { value } = event.target
-		const newValue = value ? parseInt(value, 10) : ''
-		this.setState({ newValue })
-	}
+  setNewValue = (event) => {
+	  const { value } = event.target
+	  const newValue = value ? parseInt(value, 10) : ''
+	  this.setState({ newValue })
+  }
 
   nextStep = () => {
     this.setState({ adding: true })
   }
 
-	setNewName = (event) => {
-		const { value: newName } = event.target
-		this.setState({ newName})
-	}
+  setNewName = (event) => {
+    const { value: newName } = event.target
+    this.setState({ newName})
+  }
 
 	addSector = () => {
-		this.setState(state => {
-			return {
-				sectors: [
-					...state.sectors, {
-						name: state.newName,
-						value: state.newValue
-					}
-				],
-				adding: false,
-				newName: '',
-				newValue: ''
-			}
-		})
-	}
+	  this.setState(state => {
+		  return {
+			  sectors: [
+				  ...state.sectors, {
+					  name: state.newName,
+					  value: state.newValue
+				  }
+        ],
+        adding: false,
+        newName: '',
+        newValue: ''
+      }
+    })
+  }
 
   editSectorValue = (event) => {
     const {name, value} = event.target
