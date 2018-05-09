@@ -84,6 +84,14 @@ class TestPie extends React.Component {
     })
   }
 
+  removeSector = (event) => {
+    const sidx = parseInt (event.target.value, 10)
+    this.setState(state => {
+      let sectors = state.sectors.splice(sidx, 1)
+      return {sectors}
+    })
+  }
+
   editSectorValue = (event) => {
     const {name, value} = event.target
 
@@ -141,8 +149,14 @@ class TestPie extends React.Component {
                   name={sector.name}
                   key={sector.name}
                   value={sector.value}
-                  onChange={this.editSectorValue}/>
+                  onChange={this.editSectorValue}
+                  onClick={this.removeSector}/>
               ))}
+ 
+              {sectors.map((sector, sidx) => 
+                  <button type="button" key={sidx} value={sidx} onClick={this.removeSector} className="small">durlete</button>
+                )}
+   
             </div>
           }
         <PieChart width={800} height={400}>
@@ -172,4 +186,6 @@ const UserInput = (props) =>
     {props.name.indexOf('STEP') === 0 && <br />}
 
     <input {...props} type={props.type || 'text'}/>
+
+    <button type="button" onClick={props.removeSector} className="small">---</button>
   </DataDisplay>
