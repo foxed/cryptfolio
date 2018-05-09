@@ -88,7 +88,7 @@ class TestPie extends React.Component {
     const sidx = parseInt (event.target.value, 10)
     this.setState(state => {
       let sectors = state.sectors.splice(sidx, 1)
-      return {sectors}
+      return {sectors: state.sectors}
     })
   }
 
@@ -149,8 +149,7 @@ class TestPie extends React.Component {
                   name={sector.name}
                   key={sector.name}
                   value={sector.value}
-                  onChange={this.editSectorValue}
-                  onClick={this.removeSector}/>
+                  onChange={this.editSectorValue}/>
               ))}
  
               {sectors.map((sector, sidx) => 
@@ -186,6 +185,4 @@ const UserInput = (props) =>
     {props.name.indexOf('STEP') === 0 && <br />}
 
     <input {...props} type={props.type || 'text'}/>
-
-    <button type="button" onClick={props.removeSector} className="small">---</button>
   </DataDisplay>
