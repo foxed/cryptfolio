@@ -87,8 +87,8 @@ class TestPie extends React.Component {
   removeSector = (event) => {
     const sidx = parseInt (event.target.value, 10)
     this.setState(state => {
-      let sectors = state.sectors.splice(sidx, 1)
-      return {sectors: state.sectors}
+      let sectors = state.sectors.filter((sector, index) => (index !== sidx))
+      return {sectors}
     })
   }
 
