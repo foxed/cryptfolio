@@ -84,6 +84,14 @@ class TestPie extends React.Component {
     })
   }
 
+  removeSector = (event) => {
+    const sidx = parseInt (event.target.value, 10)
+    this.setState(state => {
+      let sectors = state.sectors.splice(sidx, 1)
+      return {sectors: state.sectors}
+    })
+  }
+
   editSectorValue = (event) => {
     const {name, value} = event.target
 
@@ -143,6 +151,11 @@ class TestPie extends React.Component {
                   value={sector.value}
                   onChange={this.editSectorValue}/>
               ))}
+ 
+              {sectors.map((sector, sidx) => 
+                  <button type="button" key={sidx} value={sidx} onClick={this.removeSector} className="small">durlete</button>
+                )}
+   
             </div>
           }
         <PieChart width={800} height={400}>
