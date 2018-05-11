@@ -133,31 +133,29 @@ class TestPie extends React.Component {
             <Button onClick={this.addSector}>ADD SECTOR</Button>
             </div>
             : <div>
-            <UserInput
-              name='coin value'
-              type='number'
-              value={newValue}
-              onChange={this.setNewValue}/>
+              <UserInput
+                name='coin value'
+                type='number'
+                value={newValue}
+                onChange={this.setNewValue}/>
 
-              <Button onClick={this.nextStep}>NEXT STEP</Button>
+                <Button onClick={this.nextStep}>NEXT STEP</Button>
 
-              <br /> <br />
+                <br /> <br />
               
 
-              {sectors.map((sector, sidx) => (
-                <div>
-                  <UserInput
-                    type='number'
-                    name={sector.name}
-                    key={sector.name}
-                    value={sector.value}
-                    onChange={this.editSectorValue} />
+                {sectors.map((sector, sidx) => (
+                  <div>
+                    <UserInput
+                      type='number'
+                      name={sector.name}
+                      key={sector.name}
+                      value={sector.value}
+                      onChange={this.editSectorValue} />
 
-                    <button type="button" key={sidx} value={sidx} onClick={this.removeSector} className="small"> - </button>
-                </div>
-              ))}
-              
-   
+                      <button type="button" key={sidx} value={sidx} onClick={this.removeSector} className="small"> - </button>
+                  </div>
+                ))}
             </div>
           }
         <PieChart width={800} height={400}>
