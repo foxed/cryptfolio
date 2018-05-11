@@ -84,6 +84,14 @@ class TestPie extends React.Component {
     })
   }
 
+  removeSector = (event) => {
+    const sidx = parseInt (event.target.value, 10)
+    this.setState(state => {
+      let sectors = state.sectors.filter((sector, index) => (index !== sidx))
+      return {sectors}
+    })
+  }
+
   editSectorValue = (event) => {
     const {name, value} = event.target
 
@@ -125,24 +133,29 @@ class TestPie extends React.Component {
             <Button onClick={this.addSector}>ADD SECTOR</Button>
             </div>
             : <div>
-            <UserInput
-              name='coin value'
-              type='number'
-              value={newValue}
-              onChange={this.setNewValue}/>
+              <UserInput
+                name='coin value'
+                type='number'
+                value={newValue}
+                onChange={this.setNewValue}/>
 
-              <Button onClick={this.nextStep}>NEXT STEP</Button>
+                <Button onClick={this.nextStep}>NEXT STEP</Button>
 
-              <br /> <br />
+                <br /> <br />
+              
 
-              {sectors.map(sector => (
-                <UserInput
-                  type='number'
-                  name={sector.name}
-                  key={sector.name}
-                  value={sector.value}
-                  onChange={this.editSectorValue}/>
-              ))}
+                {sectors.map((sector, sidx) => (
+                  <div>
+                    <UserInput
+                      type='number'
+                      name={sector.name}
+                      key={sector.name}
+                      value={sector.value}
+                      onChange={this.editSectorValue} />
+
+                      <button type="button" key={sidx} value={sidx} onClick={this.removeSector} className="small"> - </button>
+                  </div>
+                ))}
             </div>
           }
         <PieChart width={800} height={400}>
@@ -170,6 +183,7 @@ const UserInput = (props) =>
     <label style={{ marginRight: 10 }} >{props.name}</label>
 
     {props.name.indexOf('STEP') === 0 && <br />}
+
 
     <input {...props} type={props.type || 'text'}/>
   </DataDisplay>
