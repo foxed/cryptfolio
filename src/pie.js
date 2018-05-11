@@ -142,19 +142,21 @@ class TestPie extends React.Component {
               <Button onClick={this.nextStep}>NEXT STEP</Button>
 
               <br /> <br />
+              
 
-              {sectors.map(sector => (
-                <UserInput
-                  type='number'
-                  name={sector.name}
-                  key={sector.name}
-                  value={sector.value}
-                  onChange={this.editSectorValue}/>
+              {sectors.map((sector, sidx) => (
+                <div>
+                  <UserInput
+                    type='number'
+                    name={sector.name}
+                    key={sector.name}
+                    value={sector.value}
+                    onChange={this.editSectorValue} />
+
+                    <button type="button" key={sidx} value={sidx} onClick={this.removeSector} className="small"> - </button>
+                </div>
               ))}
- 
-              {sectors.map((sector, sidx) => 
-                  <button type="button" key={sidx} value={sidx} onClick={this.removeSector} className="small">durlete</button>
-                )}
+              
    
             </div>
           }
@@ -183,6 +185,7 @@ const UserInput = (props) =>
     <label style={{ marginRight: 10 }} >{props.name}</label>
 
     {props.name.indexOf('STEP') === 0 && <br />}
+
 
     <input {...props} type={props.type || 'text'}/>
   </DataDisplay>
